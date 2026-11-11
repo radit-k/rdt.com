@@ -1,15 +1,541 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Website RDT</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RUANG WARNA99 - Toko Online</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f6fc;
+    color: #142b49;
+}
+
+header {
+    background: #102b50;
+    color: white;
+    padding: 22px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: #77c5ff;
+}
+
+.header-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 17px;
+    font-weight: bold;
+}
+
+.edit-btn {
+    background: #72c4ff;
+    color: #102b50;
+}
+
+.cart-btn {
+    background: white;
+    color: #102b50;
+}
+
+.hero {
+    background: linear-gradient(120deg, #102b50, #2678b9);
+    color: white;
+    text-align: center;
+    padding: 65px 20px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #d5eaff;
+    font-size: 16px;
+}
+
+.search-area {
+    max-width: 600px;
+    margin: 25px auto 0;
+    display: flex;
+    gap: 8px;
+    padding: 0 10px;
+}
+
+.search-area input {
+    flex: 1;
+    padding: 14px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+
+.search-area button {
+    background: #72c4ff;
+    color: #102b50;
+}
+
+.container {
+    max-width: 1150px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.section-title h2 {
+    font-size: 25px;
+}
+
+.add-btn {
+    background: #102b50;
+    color: white;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+.product {
+    background: white;
+    border-radius: 13px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px #102b5012;
+    transition: .2s;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+}
+
+.product-image {
+    height: 175px;
+    background: linear-gradient(135deg, #dceeff, #9dcfff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 65px;
+}
+
+.product-info {
+    padding: 18px;
+}
+
+.product-info h3 {
+    margin-bottom: 9px;
+}
+
+.product-info p {
+    color: #718096;
+    font-size: 14px;
+    min-height: 35px;
+    margin-bottom: 12px;
+}
+
+.price {
+    color: #1672ba;
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 14px;
+}
+
+.buy-btn {
+    width: 100%;
+    background: #102b50;
+    color: white;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 7px;
+    margin-top: 10px;
+}
+
+.edit-actions button {
+    flex: 1;
+    font-size: 12px;
+}
+
+.change-btn {
+    background: #d9edff;
+    color: #102b50;
+}
+
+.delete-btn {
+    background: #ffe2e2;
+    color: #a52323;
+}
+
+.editing {
+    background: #eaf5ff;
+    border: 2px solid #72c4ff;
+}
+
+.edit-input {
+    width: 100%;
+    padding: 9px;
+    margin: 5px 0;
+    border: 1px solid #9dcfff;
+    border-radius: 6px;
+}
+
+.edit-notice {
+    display: none;
+    background: #d9edff;
+    color: #102b50;
+    padding: 13px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+footer {
+    background: #102b50;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 60px;
+}
+
+@media(max-width:600px) {
+    .hero h1 { font-size: 29px; }
+    header { padding: 18px 5%; }
+    .logo { font-size: 21px; }
+}
+</style>
 </head>
+
 <body>
 
-    <h1>Selamat Datang di Website RDT</h1>
+<header>
+    <div class="logo">RUANG <span>WARNA99</span></div>
 
-    <p>Ini adalah website pertama saya.</p>
+    <div class="header-right">
+        <button class="cart-btn" onclick="showCart()">
+            🛒 Keranjang (<span id="cartCount">0</span>)
+        </button>
 
-    <button>Klik Saya</button>
+        <button class="edit-btn" onclick="toggleEdit()">
+            ✏️ Mode Edit
+        </button>
+    </div>
+</header>
+
+<section class="hero">
+    <h1>Selamat Datang di RUANG WARNA99</h1>
+    <p>Temukan produk pilihan terbaik hanya di toko kami.</p>
+
+    <div class="search-area">
+        <input type="text" id="search"
+        placeholder="Cari produk di sini..."
+        oninput="renderProducts()">
+
+        <button onclick="renderProducts()">Cari</button>
+    </div>
+</section>
+
+<main class="container">
+
+    <div class="section-title">
+        <h2>Produk Kami</h2>
+
+        <button class="add-btn" id="addButton"
+        onclick="addProduct()" style="display:none">
+            + Tambah Produk
+        </button>
+    </div>
+
+    <div class="edit-notice" id="editNotice">
+        ✏️ Mode Edit aktif. Kamu dapat mengubah produk langsung di sini.
+        Perubahan akan disimpan di browser ini.
+    </div>
+
+    <div class="product-grid" id="productList"></div>
+
+</main>
+
+<footer>
+    <h3>RUANG WARNA99</h3>
+    <p style="margin-top:10px">
+        © 2026 RUANG WARNA99. All Rights Reserved.
+    </p>
+</footer>
+
+<script>
+
+// DATA PRODUK AWAL
+const defaultProducts = [
+    {
+        id: 1,
+        name: "Produk Pertama",
+        price: 25000,
+        description: "Produk pilihan dari Ruang Warna99",
+        emoji: "🎁"
+    },
+    {
+        id: 2,
+        name: "Produk Kedua",
+        price: 35000,
+        description: "Produk berkualitas untuk kamu",
+        emoji: "🛍️"
+    },
+    {
+        id: 3,
+        name: "Produk Ketiga",
+        price: 50000,
+        description: "Temukan produk favoritmu",
+        emoji: "📦"
+    }
+];
+
+let products = JSON.parse(
+    localStorage.getItem("rw99_products")
+) || defaultProducts;
+
+let cart = [];
+let editMode = false;
+
+// MENAMPILKAN PRODUK
+function renderProducts() {
+    const list = document.getElementById("productList");
+    const keyword = document.getElementById("search")
+        .value.toLowerCase();
+
+    list.innerHTML = "";
+
+    const filtered = products.filter(p =>
+        p.name.toLowerCase().includes(keyword)
+    );
+
+    if (filtered.length === 0) {
+        list.innerHTML = "<p>Produk tidak ditemukan.</p>";
+        return;
+    }
+
+    filtered.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "product";
+
+        card.innerHTML = `
+            <div class="product-image">
+                ${escapeHTML(product.emoji)}
+            </div>
+
+            <div class="product-info">
+                <h3>${escapeHTML(product.name)}</h3>
+
+                <p>${escapeHTML(product.description)}</p>
+
+                <div class="price">
+                    ${formatPrice(product.price)}
+                </div>
+
+                <button class="buy-btn"
+                    onclick="addToCart(${product.id})">
+                    🛒 Tambah ke Keranjang
+                </button>
+
+                ${editMode ? `
+                    <div class="edit-actions">
+                        <button class="change-btn"
+                            onclick="editProduct(${product.id})">
+                            ✏️ Edit
+                        </button>
+
+                        <button class="delete-btn"
+                            onclick="deleteProduct(${product.id})">
+                            🗑 Hapus
+                        </button>
+                    </div>
+                ` : ""}
+            </div>
+        `;
+
+        list.appendChild(card);
+    });
+}
+
+// FORMAT HARGA
+function formatPrice(price) {
+    return "Rp " + Number(price).toLocaleString("id-ID");
+}
+
+// MENGAMANKAN TEKS YANG DITAMPILKAN
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+// SIMPAN PRODUK
+function saveProducts() {
+    localStorage.setItem(
+        "rw99_products",
+        JSON.stringify(products)
+    );
+
+    renderProducts();
+}
+
+// MODE EDIT
+function toggleEdit() {
+    editMode = !editMode;
+
+    document.getElementById("addButton").style.display =
+        editMode ? "block" : "none";
+
+    document.getElementById("editNotice").style.display =
+        editMode ? "block" : "none";
+
+    document.querySelector(".edit-btn").innerText =
+        editMode ? "✓ Selesai Edit" : "✏️ Mode Edit";
+
+    renderProducts();
+}
+
+// TAMBAH PRODUK
+function addProduct() {
+    const name = prompt("Masukkan nama produk:");
+    if (!name || !name.trim()) return;
+
+    const price = prompt("Masukkan harga produk:");
+    if (price === null || price.trim() === "" ||
+        !Number.isFinite(Number(price)) || Number(price) < 0) {
+        alert("Harga harus berupa angka yang valid.");
+        return;
+    }
+
+    const description =
+        prompt("Masukkan deskripsi produk:") || "Produk pilihan kami";
+
+    const emoji = prompt("Masukkan emoji produk:", "🎁") || "🎁";
+
+    products.push({
+        id: Date.now(),
+        name: name.trim(),
+        price: Number(price),
+        description: description.trim(),
+        emoji: emoji.trim()
+    });
+
+    saveProducts();
+}
+
+// EDIT PRODUK
+function editProduct(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+
+    const name = prompt("Ubah nama produk:", product.name);
+    if (name === null || !name.trim()) return;
+
+    const price = prompt("Ubah harga:", product.price);
+    if (price === null || price.trim() === "" ||
+        !Number.isFinite(Number(price)) || Number(price) < 0) {
+        alert("Harga tidak valid.");
+        return;
+    }
+
+    const description = prompt(
+        "Ubah deskripsi:",
+        product.description
+    );
+
+    if (description === null) return;
+
+    const emoji = prompt("Ubah emoji:", product.emoji);
+    if (emoji === null) return;
+
+    product.name = name.trim();
+    product.price = Number(price);
+    product.description = description.trim();
+    product.emoji = emoji.trim() || "🎁";
+
+    saveProducts();
+}
+
+// HAPUS PRODUK
+function deleteProduct(id) {
+    if (!confirm("Yakin ingin menghapus produk ini?")) return;
+
+    products = products.filter(p => p.id !== id);
+    saveProducts();
+}
+
+// KERANJANG
+function addToCart(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+
+    cart.push(product);
+    document.getElementById("cartCount").innerText = cart.length;
+
+    alert(product.name + " ditambahkan ke keranjang!");
+}
+
+function showCart() {
+    if (cart.length === 0) {
+        alert("Keranjang masih kosong.");
+        return;
+    }
+
+    let message = "ISI KERANJANG:\n\n";
+
+    let total = 0;
+
+    cart.forEach(item => {
+        message += item.name + " - " +
+            formatPrice(item.price) + "\n";
+        total += Number(item.price);
+    });
+
+    message += "\nTotal: " + formatPrice(total);
+
+    alert(message);
+}
+
+// TAMPILKAN PRODUK SAAT PERTAMA DIBUKA
+renderProducts();
+
+</script>
 
 </body>
 </html>
